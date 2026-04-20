@@ -1,6 +1,7 @@
 package com.fitflow.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -14,13 +15,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fitflow.ui.theme.*
 
 @Composable
-fun BottomNavbar() {
+fun BottomNavbar(currentRoute: String, onNavigate: (String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,8 +31,8 @@ fun BottomNavbar() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        NavItem("Home", Icons.Default.Home, true)
-        NavItem("Plan", Icons.Default.DateRange, false)
+        NavItem("Home", Icons.Default.Home, currentRoute == "dashboard") { onNavigate("dashboard") }
+        NavItem("Plan", Icons.Default.DateRange, currentRoute == "planner") { onNavigate("planner") }
         
         // FAB 
         Box(
@@ -38,21 +40,29 @@ fun BottomNavbar() {
                 .offset(y = (-24).dp)
                 .size(64.dp)
                 .background(AccentNeon, CircleShape)
+                .clip(CircleShape)
+                .clickable { /* TODO: Show Add Dialog */ }
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
             Icon(Icons.Default.Add, contentDescription = "Add", tint = Color.Black, modifier = Modifier.size(32.dp))
         }
 
-        NavItem("Library", Icons.Default.List, false)
-        NavItem("Me", Icons.Default.Person, false)
+        NavItem("Library", Icons.Default.List, currentRoute == "library") { onNavigate("library") }
+        NavItem("Me", Icons.Default.Person, currentRoute == "profile") { onNavigate("profile") }
     }
 }
 
 @Composable
-fun NavItem(label: String, icon: androidx.compose.ui.graphics.vector.ImageVector, selected: Boolean) {
+fun NavItem(label: String, icon: androidx.compose.ui.graphics.vector.ImageVector, selected: Boolean, onClick: () -> Unit) {
     val color = if (selected) AccentNeon else White40
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+            .padding(8.dp)
+    ) {
         Icon(icon, contentDescription = label, tint = color, modifier = Modifier.size(24.dp))
         Spacer(modifier = Modifier.height(4.dp))
         Text(label, color = color, fontSize = 9.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Black)

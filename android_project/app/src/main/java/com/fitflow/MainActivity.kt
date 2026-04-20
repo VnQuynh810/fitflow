@@ -6,9 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.fitflow.ui.components.BottomNavbar
 import com.fitflow.ui.screens.DashboardScreen
+import com.fitflow.ui.screens.LibraryScreen
+import com.fitflow.ui.screens.PlannerScreen
 import com.fitflow.ui.theme.FitFlowTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,11 +24,31 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FitFlowTheme {
+                val navController = rememberNavController()
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route ?: "dashboard"
+
                 Scaffold(
-                    bottomBar = { BottomNavbar() }
+                    bottomBar = {
+                        if (currentRoute != "onboarding") {
+                            BottomNavbar(currentRoute) { route ->
+                                navController.navigate(route) {
+                                    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        }
+                    }
                 ) { paddingValues ->
-                    Box(modifier = Modifier.padding(paddingValues)) {
-                        DashboardScreen()
+                    NavHost(
+                        navController = navController,
+                        startDestination = "dashboard",
+                        modifier = Modifier.padding(paddingValues)
+                    ) {
+                        composable("dashboard") { DashboardScreen() }
+                        composable("planner") { PlannerScreen() }
+                        composable("library") { LibraryScreen() }
                     }
                 }
             }

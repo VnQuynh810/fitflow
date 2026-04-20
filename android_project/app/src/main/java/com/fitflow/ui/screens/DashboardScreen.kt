@@ -2,16 +2,19 @@ package com.fitflow.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,6 +23,10 @@ import com.fitflow.ui.theme.*
 
 @Composable
 fun DashboardScreen() {
+    // Mutable state để UI tự động cập nhật khi người dùng bấm nút
+    var steps by remember { mutableIntStateOf(0) }
+    var water by remember { mutableIntStateOf(0) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -30,7 +37,12 @@ fun DashboardScreen() {
         Spacer(modifier = Modifier.height(32.dp))
         StreakSummarySection()
         Spacer(modifier = Modifier.height(32.dp))
-        HealthMetricsSection()
+        HealthMetricsSection(
+            steps = steps,
+            onAddSteps = { steps += 500 },
+            water = water,
+            onAddWater = { water += 250 }
+        )
     }
 }
 
@@ -99,17 +111,22 @@ fun StreakSummarySection() {
 }
 
 @Composable
-fun HealthMetricsSection() {
+fun HealthMetricsSection(
+    steps: Int, onAddSteps: () -> Unit,
+    water: Int, onAddWater: () -> Unit
+) {
     Text("HEALTH METRICS", fontSize = 11.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 3.sp)
     Spacer(modifier = Modifier.height(12.dp))
     
-    MetricCard("STEPS", "0", "10000 steps")
+    MetricCard("STEPS", steps.toString(), 10000, "steps", onAddSteps)
     Spacer(modifier = Modifier.height(12.dp))
-    MetricCard("WATER", "0", "2500 ml")
+    MetricCard("WATER", water.toString(), 2500, "ml", onAddWater)
 }
 
 @Composable
-fun MetricCard(label: String, value: String, goal: String) {
+fun MetricCard(label: String, value: String, goal: Int, unit: String, onClick: () -> Unit) {
+    val progress = (value.toFloat() / goal.toFloat()).coerceIn(0f, 1f)
+    
     Card(
         colors = CardDefaults.cardColors(containerColor = CardDark),
         shape = RoundedCornerShape(24.dp),
@@ -119,15 +136,33 @@ fun MetricCard(label: String, value: String, goal: String) {
             modifier = Modifier.fillMaxSize().padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Icon Placeholder
             Box(modifier = Modifier.size(40.dp).background(AccentNeon.copy(alpha=0.1f), RoundedCornerShape(12.dp)))
             Spacer(modifier = Modifier.width(16.dp))
+            
             Column(modifier = Modifier.weight(1f)) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(label, color = White40, fontSize = 10.sp, fontWeight = FontWeight.Black)
-                    Text("$value / $goal", color = TextDim, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text("$value / $goal $unit", color = TextDim, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                Box(modifier = Modifier.fillMaxWidth().height(4.dp).background(White05, RoundedCornerShape(50)))
+                // Progress Bar
+                Box(modifier = Modifier.fillMaxWidth().height(4.dp).background(White05, RoundedCornerShape(50))) {
+                    Box(modifier = Modifier.fillMaxWidth(progress).height(4.dp).background(AccentNeon, RoundedCornerShape(50)))
+                }
+            }
+            
+            Spacer(modifier = Modifier.width(16.dp))
+            // Clickable Add Button
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .border(1.dp, White10, RoundedCornerShape(12.dp))
+                    .clickable { onClick() },
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Add", tint = TextDim)
             }
         }
     }
