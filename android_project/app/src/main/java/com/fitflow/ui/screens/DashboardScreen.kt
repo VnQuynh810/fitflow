@@ -146,9 +146,11 @@ fun MetricCard(label: String, value: String, goal: Int, unit: String, onClick: (
                     Text("$value / $goal $unit", color = TextDim, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                // Progress Bar
+                // Progress Bar (Fix crash by checking if progress > 0)
                 Box(modifier = Modifier.fillMaxWidth().height(4.dp).background(White05, RoundedCornerShape(50))) {
-                    Box(modifier = Modifier.fillMaxWidth(progress).height(4.dp).background(AccentNeon, RoundedCornerShape(50)))
+                    if (progress > 0f) {
+                        Box(modifier = Modifier.fillMaxWidth(progress).height(4.dp).background(AccentNeon, RoundedCornerShape(50)))
+                    }
                 }
             }
             

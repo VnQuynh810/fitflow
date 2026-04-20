@@ -17,6 +17,7 @@ import com.fitflow.ui.components.BottomNavbar
 import com.fitflow.ui.screens.DashboardScreen
 import com.fitflow.ui.screens.LibraryScreen
 import com.fitflow.ui.screens.PlannerScreen
+import com.fitflow.ui.screens.ProfileScreen
 import com.fitflow.ui.theme.FitFlowTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity() {
                         composable("dashboard") { DashboardScreen() }
                         composable("planner") { PlannerScreen() }
                         composable("library") { LibraryScreen() }
+                        composable("profile") { ProfileScreen() }
                     }
                 }
             }
