@@ -4,17 +4,24 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   
-  --color-bg-dark: #050505;
-  --color-card-dark: #111111;
-  --color-accent: #C1FF72;
-  --color-text-dim: #E0E0E0;
+  --color-bg-dark: #0A0B10;
+  --color-card-dark: #161821;
+  --color-accent: #FF5F07;
+  --color-secondary: #00E5FF;
+  --color-text-dim: #F0F0F5;
   
-  --shadow-stat-glow: 0 0 15px rgba(193, 255, 114, 0.15);
+  --shadow-stat-glow: 0 0 25px rgba(255, 95, 7, 0.15);
+  --shadow-blue-glow: 0 0 25px rgba(0, 229, 255, 0.15);
 }
 
 @layer base {
   body {
     background-color: var(--color-bg-dark);
     color: var(--color-text-dim);
+    background-image: 
+      radial-gradient(circle at 50% 50%, rgba(255, 95, 7, 0.05), transparent 80%),
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
   }
 }

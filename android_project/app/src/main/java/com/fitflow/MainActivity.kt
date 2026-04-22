@@ -47,10 +47,42 @@ class MainActivity : ComponentActivity() {
                         startDestination = "dashboard",
                         modifier = Modifier.padding(paddingValues)
                     ) {
-                        composable("dashboard") { DashboardScreen() }
-                        composable("planner") { PlannerScreen() }
+                        composable("dashboard") { 
+                            DashboardScreen(onStartWorkout = {
+                                navController.navigate("workout_session")
+                            }) 
+                        }
+                        composable("planner") { 
+                            PlannerScreen() 
+                        }
                         composable("library") { LibraryScreen() }
-                        composable("profile") { ProfileScreen() }
+                        composable("profile") { 
+                            ProfileScreen(onReCalibrate = { 
+                                navController.navigate("onboarding") 
+                            }) 
+                        }
+                        composable("onboarding") {
+                            com.fitflow.ui.screens.OnboardingScreen(onComplete = {
+                                navController.navigate("workout_setup")
+                            })
+                        }
+                        composable("workout_setup") {
+                            com.fitflow.ui.screens.WorkoutSetupScreen(onComplete = {
+                                navController.navigate("dashboard") {
+                                    popUpTo("onboarding") { inclusive = true }
+                                }
+                            })
+                        }
+                        composable("workout_session") {
+                            com.fitflow.ui.screens.WorkoutSessionScreen(
+                                onComplete = {
+                                    navController.popBackStack("dashboard", inclusive = false)
+                                },
+                                onExit = {
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
                     }
                 }
             }

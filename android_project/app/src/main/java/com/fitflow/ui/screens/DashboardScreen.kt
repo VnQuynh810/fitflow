@@ -22,27 +22,62 @@ import androidx.compose.ui.unit.sp
 import com.fitflow.ui.theme.*
 
 @Composable
-fun DashboardScreen() {
+fun DashboardScreen(onStartWorkout: () -> Unit) {
     // Mutable state để UI tự động cập nhật khi người dùng bấm nút
     var steps by remember { mutableIntStateOf(0) }
     var water by remember { mutableIntStateOf(0) }
 
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundDark)
-            .padding(16.dp)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        HeaderSection()
-        Spacer(modifier = Modifier.height(32.dp))
-        StreakSummarySection()
-        Spacer(modifier = Modifier.height(32.dp))
-        HealthMetricsSection(
-            steps = steps,
-            onAddSteps = { steps += 500 },
-            water = water,
-            onAddWater = { water += 250 }
-        )
+        item { HeaderSection() }
+        
+        item {
+            // Hero CTA: Start Session
+            Card(
+                colors = CardDefaults.cardColors(containerColor = AccentNeon),
+                shape = RoundedCornerShape(32.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onStartWorkout() },
+            ) {
+                Row(
+                    modifier = Modifier.padding(32.dp).fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text("INITIALIZE", color = BackgroundDark, fontSize = 24.sp, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
+                        Text("PROTOCOL", color = BackgroundDark, fontSize = 24.sp, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("ACTIVE SESSION READY", color = BackgroundDark.copy(alpha=0.6f), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                    }
+                    Box(
+                        modifier = Modifier.size(56.dp).background(BackgroundDark, CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(Icons.Default.Star, contentDescription = null, tint = AccentNeon, modifier = Modifier.size(32.dp))
+                    }
+                }
+            }
+        }
+
+        item { StreakSummarySection() }
+        
+        item {
+            HealthMetricsSection(
+                steps = steps,
+                onAddSteps = { steps += 500 },
+                water = water,
+                onAddWater = { water += 250 }
+            )
+        }
+        
+        item { Spacer(modifier = Modifier.height(80.dp)) }
     }
 }
 
@@ -83,13 +118,13 @@ fun StreakSummarySection() {
         Card(
             colors = CardDefaults.cardColors(containerColor = CardDark),
             shape = RoundedCornerShape(32.dp),
-            modifier = Modifier.weight(1f).height(160.dp).border(1.dp, White05, RoundedCornerShape(32.dp))
+            modifier = Modifier.weight(1f).height(160.dp).border(1.dp, AccentNeon.copy(alpha=0.3f), RoundedCornerShape(32.dp))
         ) {
             Column(modifier = Modifier.padding(24.dp).fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
                 Icon(Icons.Default.Star, contentDescription = null, tint = AccentNeon.copy(alpha = 0.5f))
                 Column {
                     Text("0", fontSize = 48.sp, color = AccentNeon, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
-                    Text("CHUỖI STREAK", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                    Text("STREAK CYCLE", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
                 }
             }
         }
@@ -97,13 +132,13 @@ fun StreakSummarySection() {
         Card(
             colors = CardDefaults.cardColors(containerColor = CardDark),
             shape = RoundedCornerShape(32.dp),
-            modifier = Modifier.weight(1f).height(160.dp).border(1.dp, White05, RoundedCornerShape(32.dp))
+            modifier = Modifier.weight(1f).height(160.dp).border(1.dp, SecondaryBlue.copy(alpha=0.3f), RoundedCornerShape(32.dp))
         ) {
             Column(modifier = Modifier.padding(24.dp).fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
-                Icon(Icons.Default.Favorite, contentDescription = null, tint = White40.copy(alpha = 0.5f))
+                Icon(Icons.Default.Favorite, contentDescription = null, tint = SecondaryBlue.copy(alpha = 0.5f))
                 Column {
-                    Text("WEIGHT LOSS", fontSize = 18.sp, color = TextDim, fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)
-                    Text("GIAI ĐOẠN 1", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                    Text("WEIGHT LOSS", fontSize = 18.sp, color = SecondaryBlue, fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)
+                    Text("PHASE 01", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
                 }
             }
         }
@@ -118,13 +153,13 @@ fun HealthMetricsSection(
     Text("HEALTH METRICS", fontSize = 11.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 3.sp)
     Spacer(modifier = Modifier.height(12.dp))
     
-    MetricCard("STEPS", steps.toString(), 10000, "steps", onAddSteps)
+    MetricCard("STEPS", steps.toString(), 10000, "steps", AccentNeon, onAddSteps)
     Spacer(modifier = Modifier.height(12.dp))
-    MetricCard("WATER", water.toString(), 2500, "ml", onAddWater)
+    MetricCard("WATER", water.toString(), 2500, "ml", SecondaryBlue, onAddWater)
 }
 
 @Composable
-fun MetricCard(label: String, value: String, goal: Int, unit: String, onClick: () -> Unit) {
+fun MetricCard(label: String, value: String, goal: Int, unit: String, mainColor: androidx.compose.ui.graphics.Color, onClick: () -> Unit) {
     val progress = (value.toFloat() / goal.toFloat()).coerceIn(0f, 1f)
     
     Card(
@@ -137,7 +172,7 @@ fun MetricCard(label: String, value: String, goal: Int, unit: String, onClick: (
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Icon Placeholder
-            Box(modifier = Modifier.size(40.dp).background(AccentNeon.copy(alpha=0.1f), RoundedCornerShape(12.dp)))
+            Box(modifier = Modifier.size(40.dp).background(mainColor.copy(alpha=0.1f), RoundedCornerShape(12.dp)))
             Spacer(modifier = Modifier.width(16.dp))
             
             Column(modifier = Modifier.weight(1f)) {
@@ -146,10 +181,9 @@ fun MetricCard(label: String, value: String, goal: Int, unit: String, onClick: (
                     Text("$value / $goal $unit", color = TextDim, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                // Progress Bar (Fix crash by checking if progress > 0)
                 Box(modifier = Modifier.fillMaxWidth().height(4.dp).background(White05, RoundedCornerShape(50))) {
                     if (progress > 0f) {
-                        Box(modifier = Modifier.fillMaxWidth(progress).height(4.dp).background(AccentNeon, RoundedCornerShape(50)))
+                        Box(modifier = Modifier.fillMaxWidth(progress).height(4.dp).background(mainColor, RoundedCornerShape(50)))
                     }
                 }
             }

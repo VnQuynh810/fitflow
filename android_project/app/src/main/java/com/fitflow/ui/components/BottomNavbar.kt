@@ -26,7 +26,7 @@ fun BottomNavbar(currentRoute: String, onNavigate: (String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(CardDark.copy(alpha = 0.9f))
+            .background(CardDark.copy(alpha = 0.95f))
             .padding(horizontal = 24.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -41,7 +41,7 @@ fun BottomNavbar(currentRoute: String, onNavigate: (String) -> Unit) {
                 .size(64.dp)
                 .background(AccentNeon, CircleShape)
                 .clip(CircleShape)
-                .clickable { /* TODO: Show Add Dialog */ }
+                .clickable { onNavigate("workout_setup") }
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
