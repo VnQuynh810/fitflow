@@ -8,8 +8,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Refresh
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Settings
+import com.composables.icons.lucide.RefreshCw
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -52,7 +53,7 @@ fun PlannerScreen() {
                 onClick = {},
                 modifier = Modifier.background(White05, RoundedCornerShape(16.dp)).border(1.dp, White05, RoundedCornerShape(16.dp))
             ) {
-                Icon(Icons.Outlined.Settings, contentDescription = "Settings", tint = White40)
+                Icon(Lucide.Settings, contentDescription = "Settings", tint = White40)
             }
         }
 
@@ -102,7 +103,7 @@ fun PlannerScreen() {
                             Text("NEW CYCLE", color = BackgroundDark, fontSize = 20.sp, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
                             Text("RE-GENERATE ENTIRE LOGIC", color = BackgroundDark.copy(alpha=0.6f), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                         }
-                        Icon(Icons.Outlined.Refresh, contentDescription = null, tint = BackgroundDark, modifier = Modifier.size(32.dp))
+                        Icon(Lucide.RefreshCw, contentDescription = null, tint = BackgroundDark, modifier = Modifier.size(32.dp))
                     }
                 }
                 Spacer(modifier = Modifier.height(32.dp))

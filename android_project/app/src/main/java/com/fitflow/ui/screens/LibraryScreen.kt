@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Plus
+import com.composables.icons.lucide.Flame
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,7 +46,7 @@ fun LibraryScreen() {
                 onClick = {},
                 modifier = Modifier.background(AccentNeon, RoundedCornerShape(16.dp))
             ) {
-                Icon(Icons.Outlined.Add, contentDescription = "Add", tint = BackgroundDark)
+                Icon(Lucide.Plus, contentDescription = "Add", tint = BackgroundDark)
             }
         }
 
@@ -84,18 +86,24 @@ fun ExerciseCard(category: String, name: String, description: String, reps: Stri
         modifier = Modifier.fillMaxWidth().border(1.dp, White05, RoundedCornerShape(24.dp))
     ) {
         Column(modifier = Modifier.padding(24.dp)) {
-            // Category Badge
-            Text(
-                text = category,
-                color = AccentNeon,
-                fontSize = 9.sp,
-                fontWeight = FontWeight.Black,
-                letterSpacing = 3.sp,
-                modifier = Modifier
-                    .background(AccentNeon.copy(alpha=0.1f), RoundedCornerShape(50))
-                    .border(1.dp, AccentNeon.copy(alpha=0.2f), RoundedCornerShape(50))
-                    .padding(horizontal = 8.dp, vertical = 2.dp)
-            )
+            // Category Badge & Delete
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
+                Text(
+                    text = category,
+                    color = AccentNeon,
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = 3.sp,
+                    modifier = Modifier
+                        .background(AccentNeon.copy(alpha=0.1f), RoundedCornerShape(50))
+                        .border(1.dp, AccentNeon.copy(alpha=0.2f), RoundedCornerShape(50))
+                        .padding(horizontal = 8.dp, vertical = 2.dp)
+                )
+                
+                IconButton(onClick = {}, modifier = Modifier.size(24.dp).background(White05, RoundedCornerShape(8.dp))) {
+                    Icon(Lucide.Flame, contentDescription = "Delete", tint = White40, modifier = Modifier.size(12.dp))
+                }
+            }
             Spacer(modifier = Modifier.height(12.dp))
             Text(name, color = TextDim, fontSize = 20.sp, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
             Spacer(modifier = Modifier.height(8.dp))

@@ -6,7 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ChevronRight
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.ChevronRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -52,6 +53,38 @@ fun WorkoutSetupScreen(onComplete: () -> Unit) {
             EquipmentItem("Full Protocol", "Complete high-end gym access", selectedEquipment == "gym") { selectedEquipment = "gym" }
         }
 
+        // Target Vectors
+        Text("TARGET VECTORS", color = White40, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        val focusOptions = listOf("Full Body", "Chest/Back", "Legs", "Core", "Cardio Focus")
+        val chunkedFocusOptions = focusOptions.chunked(2)
+        
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            for (rowOptions in chunkedFocusOptions) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    for (f in rowOptions) {
+                        val isSelected = selectedFocus.contains(f)
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(if (isSelected) AccentNeon.copy(alpha=0.2f) else White05)
+                                .border(1.dp, if (isSelected) AccentNeon.copy(alpha=0.4f) else White05, RoundedCornerShape(12.dp))
+                                .clickable {
+                                    selectedFocus = if (isSelected) selectedFocus - f else selectedFocus + f
+                                }
+                                .padding(14.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(f.uppercase(), color = if (isSelected) AccentNeon else White30, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                        }
+                    }
+                    if (rowOptions.size == 1) Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(32.dp))
 
         // Frequency
@@ -78,7 +111,7 @@ fun WorkoutSetupScreen(onComplete: () -> Unit) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("FINALIZE PROTOCOL", color = BackgroundDark, fontSize = 12.sp, fontWeight = FontWeight.Black, letterSpacing = 2.sp)
                 Spacer(modifier = Modifier.width(8.dp))
-                Icon(Icons.Outlined.ChevronRight, contentDescription = null, tint = BackgroundDark)
+                Icon(Lucide.ChevronRight, contentDescription = null, tint = BackgroundDark)
             }
         }
     }

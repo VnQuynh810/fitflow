@@ -5,11 +5,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.DateRange
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.List
-import androidx.compose.material.icons.outlined.Person
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Activity
+import com.composables.icons.lucide.Calendar
+import com.composables.icons.lucide.Plus
+import com.composables.icons.lucide.PlusCircle
+import com.composables.icons.lucide.User
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,8 +32,8 @@ fun BottomNavbar(currentRoute: String, onNavigate: (String) -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        NavItem("Home", Icons.Outlined.Home, currentRoute == "dashboard") { onNavigate("dashboard") }
-        NavItem("Plan", Icons.Outlined.DateRange, currentRoute == "planner") { onNavigate("planner") }
+        NavItem("Home", Lucide.Activity, currentRoute == "dashboard") { onNavigate("dashboard") }
+        NavItem("Plan", Lucide.Calendar, currentRoute == "planner") { onNavigate("planner") }
         
         // FAB 
         Box(
@@ -45,11 +46,11 @@ fun BottomNavbar(currentRoute: String, onNavigate: (String) -> Unit) {
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
-            Icon(Icons.Outlined.Add, contentDescription = "Add", tint = Color.Black, modifier = Modifier.size(32.dp))
+            Icon(Lucide.Plus, contentDescription = "Add", tint = Color.Black, modifier = Modifier.size(32.dp))
         }
 
-        NavItem("Library", Icons.Outlined.List, currentRoute == "library") { onNavigate("library") }
-        NavItem("Me", Icons.Outlined.Person, currentRoute == "profile") { onNavigate("profile") }
+        NavItem("Library", Lucide.PlusCircle, currentRoute == "library") { onNavigate("library") }
+        NavItem("Me", Lucide.User, currentRoute == "profile") { onNavigate("profile") }
     }
 }
 

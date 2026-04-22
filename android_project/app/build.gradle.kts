@@ -63,6 +63,9 @@ dependencies {
     // Navigation cho Compose
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
+    // Lucide Icons for Compose
+    implementation("com.composables:icons-lucide:1.1.0")
+
     // SDK Gemini API cho AI Workout Generation (tương lai)
     implementation("com.google.ai.client.generativeai:generativeai:0.2.2")
 

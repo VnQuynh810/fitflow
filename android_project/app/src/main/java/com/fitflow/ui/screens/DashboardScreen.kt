@@ -6,12 +6,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.Star
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.WaterDrop
-import androidx.compose.material.icons.outlined.DirectionsRun
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Plus
+import com.composables.icons.lucide.Bell
+import com.composables.icons.lucide.Activity
+import com.composables.icons.lucide.Trophy
+import com.composables.icons.lucide.Droplets
+import com.composables.icons.lucide.Footprints
+import com.composables.icons.lucide.CheckCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -56,13 +58,13 @@ fun DashboardScreen(onStartWorkout: () -> Unit) {
                         Text("INITIALIZE", color = BackgroundDark, fontSize = 24.sp, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
                         Text("PROTOCOL", color = BackgroundDark, fontSize = 24.sp, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("ACTIVE SESSION READY", color = BackgroundDark.copy(alpha=0.6f), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                        Text("TODAY: PUSH UPS", color = BackgroundDark.copy(alpha=0.6f), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                     }
                     Box(
                         modifier = Modifier.size(56.dp).background(BackgroundDark, CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(Icons.Outlined.Star, contentDescription = null, tint = AccentNeon, modifier = Modifier.size(32.dp))
+                        Icon(Lucide.Activity, contentDescription = null, tint = AccentNeon, modifier = Modifier.size(32.dp))
                     }
                 }
             }
@@ -79,7 +81,11 @@ fun DashboardScreen(onStartWorkout: () -> Unit) {
             )
         }
         
-        item { Spacer(modifier = Modifier.height(80.dp)) }
+        item {
+            TodaySessionSection()
+        }
+        
+        item { Spacer(modifier = Modifier.height(120.dp)) }
     }
 }
 
@@ -109,7 +115,7 @@ fun HeaderSection() {
                 .background(White05, RoundedCornerShape(50))
                 .border(1.dp, White05, RoundedCornerShape(50))
         ) {
-            Icon(Icons.Outlined.Notifications, contentDescription = "Notify", tint = White40)
+            Icon(Lucide.Bell, contentDescription = "Notify", tint = White40)
         }
     }
 }
@@ -120,13 +126,13 @@ fun StreakSummarySection() {
         Card(
             colors = CardDefaults.cardColors(containerColor = CardDark),
             shape = RoundedCornerShape(32.dp),
-            modifier = Modifier.weight(1f).height(160.dp).border(1.dp, AccentNeon.copy(alpha=0.3f), RoundedCornerShape(32.dp))
+            modifier = Modifier.weight(1f).height(160.dp).border(1.dp, White05, RoundedCornerShape(32.dp))
         ) {
             Column(modifier = Modifier.padding(24.dp).fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
-                Icon(Icons.Outlined.Star, contentDescription = null, tint = AccentNeon.copy(alpha = 0.5f))
+                Icon(Lucide.Trophy, contentDescription = null, tint = AccentNeon.copy(alpha = 0.5f))
                 Column {
                     Text("0", fontSize = 48.sp, color = AccentNeon, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
-                    Text("STREAK CYCLE", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                    Text("CHUỖI STREAK", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
                 }
             }
         }
@@ -134,13 +140,13 @@ fun StreakSummarySection() {
         Card(
             colors = CardDefaults.cardColors(containerColor = CardDark),
             shape = RoundedCornerShape(32.dp),
-            modifier = Modifier.weight(1f).height(160.dp).border(1.dp, SecondaryBlue.copy(alpha=0.3f), RoundedCornerShape(32.dp))
+            modifier = Modifier.weight(1f).height(160.dp).border(1.dp, White05, RoundedCornerShape(32.dp))
         ) {
             Column(modifier = Modifier.padding(24.dp).fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
-                Icon(Icons.Outlined.FavoriteBorder, contentDescription = null, tint = SecondaryBlue.copy(alpha = 0.5f))
+                Icon(Lucide.Activity, contentDescription = null, tint = SecondaryBlue.copy(alpha = 0.5f))
                 Column {
                     Text("WEIGHT LOSS", fontSize = 18.sp, color = SecondaryBlue, fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)
-                    Text("PHASE 01", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                    Text("GIAI ĐOẠN 1", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
                 }
             }
         }
@@ -155,9 +161,9 @@ fun HealthMetricsSection(
     Text("HEALTH METRICS", fontSize = 11.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 3.sp)
     Spacer(modifier = Modifier.height(12.dp))
     
-    MetricCard("STEPS", steps.toString(), 10000, "steps", AccentNeon, Icons.Outlined.DirectionsRun, onAddSteps)
+    MetricCard("STEPS", steps.toString(), 10000, "steps", AccentNeon, Lucide.Footprints, onAddSteps)
     Spacer(modifier = Modifier.height(12.dp))
-    MetricCard("WATER", water.toString(), 2500, "ml", SecondaryBlue, Icons.Outlined.WaterDrop, onAddWater)
+    MetricCard("WATER", water.toString(), 2500, "ml", SecondaryBlue, Lucide.Droplets, onAddWater)
 }
 
 @Composable
@@ -202,7 +208,75 @@ fun MetricCard(label: String, value: String, goal: Int, unit: String, mainColor:
                     .clickable { onClick() },
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Outlined.Add, contentDescription = "Add", tint = TextDim)
+                Icon(Lucide.Plus, contentDescription = "Add", tint = TextDim)
+            }
+        }
+    }
+}
+
+@Composable
+fun TodaySessionSection() {
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("SESSION", fontSize = 11.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 3.sp)
+            Text(
+                "LỊCH TẬP THÁNG",
+                color = AccentNeon,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp,
+                modifier = Modifier.clickable {  }
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Example Session Item (Push Ups)
+        SessionItemCard(name = "PUSH UPS", details = "15 reps • 3 sets", iconLetter = "P")
+        Spacer(modifier = Modifier.height(12.dp))
+        // Example Session Item (Plank)
+        SessionItemCard(name = "PLANK", details = "60s • 3 sets", iconLetter = "P")
+    }
+}
+
+@Composable
+fun SessionItemCard(name: String, details: String, iconLetter: String) {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = CardDark),
+        shape = RoundedCornerShape(24.dp),
+        modifier = Modifier.fillMaxWidth().border(1.dp, White05, RoundedCornerShape(24.dp))
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .background(White05, RoundedCornerShape(12.dp))
+                        .border(1.dp, White05, RoundedCornerShape(12.dp)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(iconLetter, color = White20, fontSize = 18.sp, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Column {
+                    Text(name, color = TextDim, fontSize = 14.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                    Text(details, color = White30, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                }
+            }
+            Box(
+                modifier = Modifier
+                    .size(32.dp)
+                    .border(1.dp, White10, CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(Lucide.CheckCircle, contentDescription = null, tint = White10, modifier = Modifier.size(16.dp))
             }
         }
     }

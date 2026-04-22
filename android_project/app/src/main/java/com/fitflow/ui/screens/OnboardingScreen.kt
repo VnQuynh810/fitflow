@@ -6,7 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowForward
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.ArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -107,7 +108,7 @@ fun OnboardingScreen(onComplete: () -> Unit) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("ACTIVATE JOURNEY", color = BackgroundDark, fontSize = 12.sp, fontWeight = FontWeight.Black, letterSpacing = 2.sp)
                 Spacer(modifier = Modifier.width(8.dp))
-                Icon(Icons.Outlined.ArrowForward, contentDescription = null, tint = BackgroundDark)
+                Icon(Lucide.ArrowRight, contentDescription = null, tint = BackgroundDark)
             }
         }
     }

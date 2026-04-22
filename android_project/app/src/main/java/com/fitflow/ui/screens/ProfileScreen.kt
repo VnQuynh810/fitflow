@@ -6,9 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ChevronRight
-import androidx.compose.material.icons.outlined.Refresh
-import androidx.compose.material.icons.outlined.Settings
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.ChevronRight
+import com.composables.icons.lucide.RefreshCw
+import com.composables.icons.lucide.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,7 +46,7 @@ fun ProfileScreen(onReCalibrate: () -> Unit = {}) {
                 onClick = {},
                 modifier = Modifier.background(White05, RoundedCornerShape(16.dp)).border(1.dp, White05, RoundedCornerShape(16.dp))
             ) {
-                Icon(Icons.Outlined.Settings, contentDescription = "Settings", tint = White40)
+                Icon(Lucide.Settings, contentDescription = "Settings", tint = White40)
             }
         }
 
@@ -86,7 +87,7 @@ fun ProfileScreen(onReCalibrate: () -> Unit = {}) {
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(modifier = Modifier.size(48.dp).background(AccentNeon.copy(alpha=0.1f), RoundedCornerShape(16.dp)), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Outlined.Refresh, contentDescription = null, tint = AccentNeon)
+                        Icon(Lucide.RefreshCw, contentDescription = null, tint = AccentNeon)
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                     Column {
@@ -94,7 +95,7 @@ fun ProfileScreen(onReCalibrate: () -> Unit = {}) {
                         Text("REVIEW YOUR ONBOARDING SETUP", color = White40, fontSize = 10.sp, fontWeight = FontWeight.Medium, letterSpacing = 1.sp)
                     }
                 }
-                Icon(Icons.Outlined.ChevronRight, contentDescription = null, tint = White40)
+                Icon(Lucide.ChevronRight, contentDescription = null, tint = White40)
             }
         }
     }
