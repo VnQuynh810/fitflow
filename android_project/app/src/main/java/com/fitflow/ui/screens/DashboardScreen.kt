@@ -6,10 +6,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.WaterDrop
+import androidx.compose.material.icons.outlined.DirectionsRun
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -60,7 +62,7 @@ fun DashboardScreen(onStartWorkout: () -> Unit) {
                         modifier = Modifier.size(56.dp).background(BackgroundDark, CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(Icons.Default.Star, contentDescription = null, tint = AccentNeon, modifier = Modifier.size(32.dp))
+                        Icon(Icons.Outlined.Star, contentDescription = null, tint = AccentNeon, modifier = Modifier.size(32.dp))
                     }
                 }
             }
@@ -107,7 +109,7 @@ fun HeaderSection() {
                 .background(White05, RoundedCornerShape(50))
                 .border(1.dp, White05, RoundedCornerShape(50))
         ) {
-            Icon(Icons.Default.Notifications, contentDescription = "Notify", tint = White40)
+            Icon(Icons.Outlined.Notifications, contentDescription = "Notify", tint = White40)
         }
     }
 }
@@ -121,7 +123,7 @@ fun StreakSummarySection() {
             modifier = Modifier.weight(1f).height(160.dp).border(1.dp, AccentNeon.copy(alpha=0.3f), RoundedCornerShape(32.dp))
         ) {
             Column(modifier = Modifier.padding(24.dp).fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
-                Icon(Icons.Default.Star, contentDescription = null, tint = AccentNeon.copy(alpha = 0.5f))
+                Icon(Icons.Outlined.Star, contentDescription = null, tint = AccentNeon.copy(alpha = 0.5f))
                 Column {
                     Text("0", fontSize = 48.sp, color = AccentNeon, fontWeight = FontWeight.Black, fontStyle = FontStyle.Italic)
                     Text("STREAK CYCLE", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
@@ -135,7 +137,7 @@ fun StreakSummarySection() {
             modifier = Modifier.weight(1f).height(160.dp).border(1.dp, SecondaryBlue.copy(alpha=0.3f), RoundedCornerShape(32.dp))
         ) {
             Column(modifier = Modifier.padding(24.dp).fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
-                Icon(Icons.Default.Favorite, contentDescription = null, tint = SecondaryBlue.copy(alpha = 0.5f))
+                Icon(Icons.Outlined.FavoriteBorder, contentDescription = null, tint = SecondaryBlue.copy(alpha = 0.5f))
                 Column {
                     Text("WEIGHT LOSS", fontSize = 18.sp, color = SecondaryBlue, fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)
                     Text("PHASE 01", fontSize = 10.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
@@ -153,13 +155,13 @@ fun HealthMetricsSection(
     Text("HEALTH METRICS", fontSize = 11.sp, color = White40, fontWeight = FontWeight.Bold, letterSpacing = 3.sp)
     Spacer(modifier = Modifier.height(12.dp))
     
-    MetricCard("STEPS", steps.toString(), 10000, "steps", AccentNeon, onAddSteps)
+    MetricCard("STEPS", steps.toString(), 10000, "steps", AccentNeon, Icons.Outlined.DirectionsRun, onAddSteps)
     Spacer(modifier = Modifier.height(12.dp))
-    MetricCard("WATER", water.toString(), 2500, "ml", SecondaryBlue, onAddWater)
+    MetricCard("WATER", water.toString(), 2500, "ml", SecondaryBlue, Icons.Outlined.WaterDrop, onAddWater)
 }
 
 @Composable
-fun MetricCard(label: String, value: String, goal: Int, unit: String, mainColor: androidx.compose.ui.graphics.Color, onClick: () -> Unit) {
+fun MetricCard(label: String, value: String, goal: Int, unit: String, mainColor: androidx.compose.ui.graphics.Color, icon: androidx.compose.ui.graphics.vector.ImageVector, onClick: () -> Unit) {
     val progress = (value.toFloat() / goal.toFloat()).coerceIn(0f, 1f)
     
     Card(
@@ -172,7 +174,9 @@ fun MetricCard(label: String, value: String, goal: Int, unit: String, mainColor:
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Icon Placeholder
-            Box(modifier = Modifier.size(40.dp).background(mainColor.copy(alpha=0.1f), RoundedCornerShape(12.dp)))
+            Box(modifier = Modifier.size(40.dp).background(mainColor.copy(alpha=0.1f), RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center) {
+                Icon(icon, contentDescription = null, tint = mainColor)
+            }
             Spacer(modifier = Modifier.width(16.dp))
             
             Column(modifier = Modifier.weight(1f)) {
@@ -198,7 +202,7 @@ fun MetricCard(label: String, value: String, goal: Int, unit: String, mainColor:
                     .clickable { onClick() },
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Add", tint = TextDim)
+                Icon(Icons.Outlined.Add, contentDescription = "Add", tint = TextDim)
             }
         }
     }

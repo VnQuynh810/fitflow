@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -85,7 +85,7 @@ fun WorkoutSessionScreen(onComplete: () -> Unit, onExit: () -> Unit) {
                 onClick = onExit,
                 modifier = Modifier.background(White05, CircleShape)
             ) {
-                Icon(Icons.Default.Close, contentDescription = "Exit", tint = White40)
+                Icon(Icons.Outlined.Close, contentDescription = "Exit", tint = White40)
             }
         }
 

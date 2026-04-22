@@ -6,7 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -78,7 +78,7 @@ fun WorkoutSetupScreen(onComplete: () -> Unit) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("FINALIZE PROTOCOL", color = BackgroundDark, fontSize = 12.sp, fontWeight = FontWeight.Black, letterSpacing = 2.sp)
                 Spacer(modifier = Modifier.width(8.dp))
-                Icon(Icons.Default.ChevronRight, contentDescription = null, tint = BackgroundDark)
+                Icon(Icons.Outlined.ChevronRight, contentDescription = null, tint = BackgroundDark)
             }
         }
     }

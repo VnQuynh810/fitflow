@@ -5,11 +5,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,8 +31,8 @@ fun BottomNavbar(currentRoute: String, onNavigate: (String) -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        NavItem("Home", Icons.Default.Home, currentRoute == "dashboard") { onNavigate("dashboard") }
-        NavItem("Plan", Icons.Default.DateRange, currentRoute == "planner") { onNavigate("planner") }
+        NavItem("Home", Icons.Outlined.Home, currentRoute == "dashboard") { onNavigate("dashboard") }
+        NavItem("Plan", Icons.Outlined.DateRange, currentRoute == "planner") { onNavigate("planner") }
         
         // FAB 
         Box(
@@ -45,11 +45,11 @@ fun BottomNavbar(currentRoute: String, onNavigate: (String) -> Unit) {
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add", tint = Color.Black, modifier = Modifier.size(32.dp))
+            Icon(Icons.Outlined.Add, contentDescription = "Add", tint = Color.Black, modifier = Modifier.size(32.dp))
         }
 
-        NavItem("Library", Icons.Default.List, currentRoute == "library") { onNavigate("library") }
-        NavItem("Me", Icons.Default.Person, currentRoute == "profile") { onNavigate("profile") }
+        NavItem("Library", Icons.Outlined.List, currentRoute == "library") { onNavigate("library") }
+        NavItem("Me", Icons.Outlined.Person, currentRoute == "profile") { onNavigate("profile") }
     }
 }
 

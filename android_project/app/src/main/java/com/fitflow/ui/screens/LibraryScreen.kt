@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,7 +44,7 @@ fun LibraryScreen() {
                 onClick = {},
                 modifier = Modifier.background(AccentNeon, RoundedCornerShape(16.dp))
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Add", tint = BackgroundDark)
+                Icon(Icons.Outlined.Add, contentDescription = "Add", tint = BackgroundDark)
             }
         }
 
