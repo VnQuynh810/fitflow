@@ -77,7 +77,7 @@ fun WorkoutSetupScreen(onComplete: () -> Unit) {
                                 .padding(14.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(f.uppercase(), color = if (isSelected) AccentNeon else White30, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                            Text(f.uppercase(), color = if (isSelected) AccentNeon else White20, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                         }
                     }
                     if (rowOptions.size == 1) Spacer(modifier = Modifier.weight(1f))

@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import com.composables.icons.lucide.Lucide
@@ -13,7 +15,7 @@ import com.composables.icons.lucide.Activity
 import com.composables.icons.lucide.Trophy
 import com.composables.icons.lucide.Droplets
 import com.composables.icons.lucide.Footprints
-import com.composables.icons.lucide.CheckCircle
+import com.composables.icons.lucide.CircleCheck
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -267,7 +269,7 @@ fun SessionItemCard(name: String, details: String, iconLetter: String) {
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
                     Text(name, color = TextDim, fontSize = 14.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-                    Text(details, color = White30, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                    Text(details, color = White20, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
                 }
             }
             Box(
@@ -276,7 +278,7 @@ fun SessionItemCard(name: String, details: String, iconLetter: String) {
                     .border(1.dp, White10, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Lucide.CheckCircle, contentDescription = null, tint = White10, modifier = Modifier.size(16.dp))
+                Icon(Lucide.CircleCheck, contentDescription = null, tint = White10, modifier = Modifier.size(16.dp))
             }
         }
     }

@@ -4,12 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Activity
 import com.composables.icons.lucide.Calendar
 import com.composables.icons.lucide.Plus
-import com.composables.icons.lucide.PlusCircle
+import com.composables.icons.lucide.CirclePlus
 import com.composables.icons.lucide.User
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -49,7 +50,7 @@ fun BottomNavbar(currentRoute: String, onNavigate: (String) -> Unit) {
             Icon(Lucide.Plus, contentDescription = "Add", tint = Color.Black, modifier = Modifier.size(32.dp))
         }
 
-        NavItem("Library", Lucide.PlusCircle, currentRoute == "library") { onNavigate("library") }
+        NavItem("Library", Lucide.CirclePlus, currentRoute == "library") { onNavigate("library") }
         NavItem("Me", Lucide.User, currentRoute == "profile") { onNavigate("profile") }
     }
 }
