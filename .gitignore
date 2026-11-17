@@ -1,0 +1,32 @@
+# Gradle & Build outputs
+*.iml
+.gradle/
+/build/
+/*/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local environment & API keys (NEVER commit)
+local.properties
+/local.properties
+*.keystore
+*.jks
+
+# IDE & Local Agent configs
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.vscode/
+.kotlin/
+.claude/settings.local.json
+.DS_Store
+Thumbs.db
+
+# Bundled Exercise GIFs & Local Scratch/Design References
+/app/src/main/assets/gifs/
+/.claude/
+/design/
